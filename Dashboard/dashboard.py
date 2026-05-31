@@ -17,7 +17,10 @@ st.set_page_config(
 # =========================
 @st.cache_data
 def load_data():
-    df = pd.read_csv("alice_transactions_final.csv")
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    csv_path = os.path.join(current_dir, "alice_transactions_final.csv")
+
+    df = pd.read_csv(csv_path)
     df.columns = df.columns.str.strip()
     df["date"] = pd.to_datetime(df["date"], errors="coerce")
     df = df.dropna(subset=["date"])
